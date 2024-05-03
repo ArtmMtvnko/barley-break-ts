@@ -1,4 +1,5 @@
 import { Brick } from "./Brick"
+import { IObservable, IObserver } from "./Observer"
 
 interface IBoardPrototype {
     clone(): string
@@ -6,13 +7,32 @@ interface IBoardPrototype {
 
 export type TypeField = Brick[][]
 
-export abstract class Board implements IBoardPrototype {
+export abstract class Board implements IBoardPrototype, IObservable {
     public abstract field: TypeField
-
-    constructor() { }
+    protected observers: IObserver[] = []
 
     public clone(): string {
         return JSON.stringify(this)
+    }
+
+    public attach(observer: IObserver): void {
+        this.observers.push(observer)
+    }
+
+    public detach(observer: IObserver): void {
+        const indexToRemove: number = this.observers.findIndex(obs => obs === observer)
+        this.observers.splice(indexToRemove, 1)
+    }
+
+    public notify(): void {
+        this.observers.forEach(obs => obs.update(this.field))
+    }
+
+    public move(fromX: number, fromY: number, toX: number, toY: number): void {
+        const brick: Brick = this.field[toY][toX]
+        this.field[toY][toX] = this.field[fromY][fromX]
+        this.field[fromY][fromX] = brick
+        this.notify()
     }
 }
 

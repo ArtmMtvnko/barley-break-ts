@@ -1,15 +1,17 @@
 import { useEffect } from 'react'
-import { MidBoardFactory, SmallBoardFactory } from './game/BoardFactory'
-import { MidBoard, SmallBoard } from './game/Board'
+import { SmallBoardFactory } from './game/BoardFactory'
+import { SmallBoard } from './game/Board'
+import { MoveObserver } from './game/Observer'
 
 function App() {
 
   useEffect(() => {
     const smallBoard: SmallBoard = new SmallBoardFactory().CreateBoard()
-    const midBoard: MidBoard = new MidBoardFactory().CreateBoard()
 
     console.log(smallBoard)
-    console.log(midBoard)
+    smallBoard.attach(new MoveObserver())
+    smallBoard.move(1, 1, 2, 1)
+    console.log(smallBoard)
   }, [])
 
   return (
