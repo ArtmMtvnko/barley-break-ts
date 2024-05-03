@@ -25,13 +25,33 @@ export abstract class Board implements IBoardPrototype, IObservable {
     }
 
     public notify(): void {
-        this.observers.forEach(obs => obs.update(this.field))
+        this.observers.forEach(obs => obs.update(this))
     }
+    
+    public move(fromX: number, fromY: number): void {
+        let tempBrick: Brick
 
-    public move(fromX: number, fromY: number, toX: number, toY: number): void {
-        const brick: Brick = this.field[toY][toX]
-        this.field[toY][toX] = this.field[fromY][fromX]
-        this.field[fromY][fromX] = brick
+        if (this.field[fromY + 1][fromX]?.value === 0) {
+            tempBrick = this.field[fromY + 1][fromX]
+            this.field[fromY + 1][fromX] = this.field[fromY][fromX]
+            this.field[fromY][fromX] = tempBrick
+        }
+        if (this.field[fromY - 1][fromX]?.value === 0) {
+            tempBrick = this.field[fromY - 1][fromX]
+            this.field[fromY - 1][fromX] = this.field[fromY][fromX]
+            this.field[fromY][fromX] = tempBrick
+        }
+        if (this.field[fromY][fromX + 1]?.value === 0) {
+            tempBrick = this.field[fromY][fromX + 1]
+            this.field[fromY][fromX + 1] = this.field[fromY][fromX]
+            this.field[fromY][fromX] = tempBrick
+        }
+        if (this.field[fromY][fromX - 1]?.value === 0) {
+            tempBrick = this.field[fromY][fromX - 1]
+            this.field[fromY][fromX - 1] = this.field[fromY][fromX]
+            this.field[fromY][fromX] = tempBrick
+        }
+
         this.notify()
     }
 }

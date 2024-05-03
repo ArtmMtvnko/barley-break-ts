@@ -1,4 +1,4 @@
-import { TypeField } from "./Board"
+import { Board } from "./Board"
 
 export interface IObservable {
     attach(observer: IObserver): void
@@ -7,11 +7,11 @@ export interface IObservable {
 }
 
 export interface IObserver {
-    update(field: TypeField): void
+    update(board: Board): void
 }
 
 export class MoveObserver implements IObserver {
-    public update(field: TypeField): void {
-        console.log(JSON.stringify(field))
+    public update(board: Board): void {
+        localStorage.setItem('field', board.clone())
     }
 }

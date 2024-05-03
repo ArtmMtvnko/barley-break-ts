@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { SmallBoardFactory } from './game/BoardFactory'
 import { SmallBoard } from './game/Board'
 import { MoveObserver } from './game/Observer'
+import { BoardMoveProxy } from './game/BoardProxy'
 
 function App() {
 
@@ -10,7 +11,9 @@ function App() {
 
     console.log(smallBoard)
     smallBoard.attach(new MoveObserver())
-    smallBoard.move(1, 1, 2, 1)
+
+    const proxy = new BoardMoveProxy(smallBoard)
+    proxy.move(3, 2)
     console.log(smallBoard)
   }, [])
 
