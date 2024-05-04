@@ -25,7 +25,7 @@ export class Caretaker {
     }
 
     public undo(): void {
-        if (!this.mementos.length) return
+        if (!this.mementos.length) throw new Error('Stack of backups is empty')
 
         const lastMemento = this.mementos.pop()
         this.originator.restore(lastMemento!)
