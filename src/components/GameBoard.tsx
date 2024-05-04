@@ -6,7 +6,7 @@ type BoardProps = {
 
 const GameBoard: FC<BoardProps> = ({ children }) => {
     return (
-        <div>
+        <div className="board">
             {children}
         </div>
     )

@@ -1,14 +1,24 @@
-import { useEffect, useState } from 'react'
+import { createContext, useEffect, useState } from 'react'
 import { SmallBoardFactory } from './game/BoardFactory'
-import { SmallBoard, TypeField } from './game/Board'
+import { Board, SmallBoard, TypeField } from './game/Board'
 import { MoveObserver } from './game/Observer'
 import { BoardMoveProxy } from './game/BoardProxy'
 import { Caretaker } from './game/Memento'
 import GameBoard from './components/GameBoard'
 import BrickComponent from './components/BrickComponent'
 
+import './style.css'
+
+type TypeBoardContext = {
+  board: Board,
+  setField: React.Dispatch<React.SetStateAction<TypeField>>
+} | undefined
+
+export const BoardContext = createContext<TypeBoardContext>(undefined)
+
 function App() {
-  const [field, setField] = useState<TypeField>(new SmallBoardFactory().CreateBoard().field)
+  const [board, setBoard] = useState<Board>(new SmallBoardFactory().CreateBoard())
+  const [field, setField] = useState<TypeField>(board.field)
 
   useEffect(() => {
     const smallBoard: SmallBoard = new SmallBoardFactory().CreateBoard()
@@ -37,11 +47,18 @@ function App() {
   return (
     <>
       <h1>Barley Break!</h1>
+
+      <BoardContext.Provider value={{ board, setField }}>
       <GameBoard>
-        {field.map(row => {
-          return row.map(brick => <BrickComponent key={brick.value} brick={brick} />)
+        {field.map((row, y) => {
+          return row.map((brick, x) => 
+            <BrickComponent key={brick.value} brick={brick} X={x} Y={y}/>
+          )
         })}
       </GameBoard>
+      </BoardContext.Provider>
+
+
     </>
   )
 }

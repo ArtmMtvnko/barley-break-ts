@@ -45,16 +45,22 @@ export abstract class Board implements IBoardPrototype, IObservable {
     public move(fromX: number, fromY: number): void {
         let tempBrick: Brick
 
-        if (this.field[fromY + 1][fromX]?.value === 0) {
-            tempBrick = this.field[fromY + 1][fromX]
-            this.field[fromY + 1][fromX] = this.field[fromY][fromX]
-            this.field[fromY][fromX] = tempBrick
+        if (this.field[fromY + 1] !== undefined) {
+            if (this.field[fromY + 1][fromX]?.value === 0) {
+                tempBrick = this.field[fromY + 1][fromX]
+                this.field[fromY + 1][fromX] = this.field[fromY][fromX]
+                this.field[fromY][fromX] = tempBrick
+            }
         }
-        if (this.field[fromY - 1][fromX]?.value === 0) {
-            tempBrick = this.field[fromY - 1][fromX]
-            this.field[fromY - 1][fromX] = this.field[fromY][fromX]
-            this.field[fromY][fromX] = tempBrick
+
+        if (this.field[fromY - 1] !== undefined) {
+            if (this.field[fromY - 1][fromX]?.value === 0) {
+                tempBrick = this.field[fromY - 1][fromX]
+                this.field[fromY - 1][fromX] = this.field[fromY][fromX]
+                this.field[fromY][fromX] = tempBrick
+            }
         }
+
         if (this.field[fromY][fromX + 1]?.value === 0) {
             tempBrick = this.field[fromY][fromX + 1]
             this.field[fromY][fromX + 1] = this.field[fromY][fromX]
