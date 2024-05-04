@@ -1,5 +1,6 @@
 import { Brick } from "./Brick"
 import { IObservable, IObserver } from "./Observer"
+import { FieldMemento, IMemento } from "./Memento"
 
 interface IBoardPrototype {
     clone(): string
@@ -10,6 +11,19 @@ export type TypeField = Brick[][]
 export abstract class Board implements IBoardPrototype, IObservable {
     public abstract field: TypeField
     protected observers: IObserver[] = []
+
+    public printField(): void {
+        let output = ''
+
+        for (const row of this.field) {
+            for (const brick of row) {
+                output += `${brick.value} `
+            }
+            output += '\n'
+        }
+
+        console.log(output)
+    }
 
     public clone(): string {
         return JSON.stringify(this)
@@ -53,6 +67,14 @@ export abstract class Board implements IBoardPrototype, IObservable {
         }
 
         this.notify()
+    }
+
+    public save(): IMemento {
+        return new FieldMemento(this.field)
+    }
+
+    public restore(memento: IMemento): void {
+        this.field = JSON.parse(memento.state)
     }
 }
 
