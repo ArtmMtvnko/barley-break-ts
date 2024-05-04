@@ -6,12 +6,18 @@ import { BoardContext, TypeBoardContext } from "../App"
 type MenuItemProps = {
     command: ICommand
     children: string
+    action: () => void 
 }
 
-const MenuItem: FC<MenuItemProps> = ({ command, children }) => {
+const MenuItem: FC<MenuItemProps> = ({ command, children, action }) => {
     const context = useContext<TypeBoardContext>(BoardContext)
 
-    return <Button onClick={() => command.execute(context)}>
+    const clickHandler = () => {
+        action()
+        command.execute(context)
+    }
+
+    return <Button onClick={clickHandler}>
         {children}
     </Button>
 }

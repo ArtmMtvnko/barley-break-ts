@@ -8,7 +8,10 @@ type ButtonProps = {
 const Button: FC<ButtonProps> = ({ children, onClick }) => {
     const styles = {
         margin: 10,
-        padding: 10
+        padding: 10,
+        cursor: 'pointer',
+        backgroundColor: 'transparent',
+        border: '1px solid black'
     }
 
     return <button onClick={onClick} style={styles}>{children}</button>

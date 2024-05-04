@@ -7,10 +7,11 @@ import { Caretaker } from './game/Memento'
 import GameBoard from './components/GameBoard'
 import BrickComponent from './components/BrickComponent'
 import Button from './components/Button'
-import './style.css'
 import MainMenu from './components/MainMenu'
 import MenuItem from './components/MenuItem'
-import { NewGameCommand } from './utils/Command'
+import { NewGameCommand, NewLargeBoardCommand, NewMidBoardCommand, NewSmallBoardCommand, ResumeGameCommand, RulesCommand } from './utils/Command'
+import { Tab } from './utils/TabsEnum'
+import './style.css'
 
 export type TypeBoardContext = {
   boardProxy: BoardMoveProxy
@@ -24,7 +25,8 @@ export type TypeBoardContext = {
 export const BoardContext = createContext<TypeBoardContext>(undefined)
 
 function App() {
-  const [board, setBoard] = useState<Board>(new MidBoardFactory().CreateBoard())
+  const [tab, setTab] = useState<Tab>(Tab.MainMenu)
+  const [board, setBoard] = useState<Board>(new MidBoardFactory().createBoard())
   const [field, setField] = useState<TypeField>(board.field)
   const [boardProxy, setBoardProxy] = useState<BoardMoveProxy>(new BoardMoveProxy(board))
   const [caretaker, setCaretaker] = useState<Caretaker>(new Caretaker(board))
@@ -70,18 +72,27 @@ function App() {
         setCaretaker,
         setBoardProxy
       }}>
-        <MainMenu>
-          <MenuItem command={new NewGameCommand()}>New 1</MenuItem>
+        <MainMenu className={tab === Tab.MainMenu ? 'menu active' : 'menu'}>
+          <MenuItem action={() => setTab(Tab.Difficulty)} command={new NewGameCommand()}>New Game</MenuItem>
+          <MenuItem action={() => setTab(Tab.GameBoard)} command={new ResumeGameCommand()}>Continue</MenuItem>
+          <MenuItem action={() => setTab(Tab.MainMenu)} command={new RulesCommand()}>Rules</MenuItem>
         </MainMenu>
-        <GameBoard>
+
+        <MainMenu className={tab === Tab.Difficulty ? 'difficulty active' : 'difficulty'}>
+          <MenuItem action={() => setTab(Tab.GameBoard)} command={new NewSmallBoardCommand()}>Small</MenuItem>
+          <MenuItem action={() => setTab(Tab.GameBoard)} command={new NewMidBoardCommand()}>Middle</MenuItem>
+          <MenuItem action={() => setTab(Tab.GameBoard)} command={new NewLargeBoardCommand()}>Large</MenuItem>
+        </MainMenu>
+
+        <GameBoard className={tab === Tab.GameBoard ? 'board active' : 'board'}>
           {field.map((row, y) => {
             return row.map((brick, x) => 
               <BrickComponent key={brick.value} brick={brick} X={x} Y={y}/>
             )
           })}
+          <Button onClick={() => setTab(Tab.Difficulty)}>Undo</Button>
+          <Button onClick={() => setTab(Tab.MainMenu)}>Exit</Button>
         </GameBoard>
-        <Button>undo</Button>
-        <Button>exit</Button>
       </BoardContext.Provider>
 
 

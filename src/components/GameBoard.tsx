@@ -3,9 +3,10 @@ import { BoardContext, TypeBoardContext } from "../App"
 
 type BoardProps = {
     children: ReactNode
+    className?: string
 }
 
-const GameBoard: FC<BoardProps> = ({ children }) => {
+const GameBoard: FC<BoardProps> = ({ children, className }) => {
     const context = useContext<TypeBoardContext>(BoardContext)
     const fieldSize: number = context!.boardProxy.field.length
 
@@ -15,7 +16,7 @@ const GameBoard: FC<BoardProps> = ({ children }) => {
     }
 
     return (
-        <div className="board" style={styles}>
+        <div className={className} style={styles}>
             {children}
         </div>
     )
