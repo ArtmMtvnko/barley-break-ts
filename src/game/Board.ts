@@ -50,6 +50,8 @@ export abstract class Board implements IBoardPrototype, IObservable {
                 tempBrick = this.field[fromY + 1][fromX]
                 this.field[fromY + 1][fromX] = this.field[fromY][fromX]
                 this.field[fromY][fromX] = tempBrick
+
+                this.notify()
             }
         }
 
@@ -58,6 +60,8 @@ export abstract class Board implements IBoardPrototype, IObservable {
                 tempBrick = this.field[fromY - 1][fromX]
                 this.field[fromY - 1][fromX] = this.field[fromY][fromX]
                 this.field[fromY][fromX] = tempBrick
+
+                this.notify()
             }
         }
 
@@ -65,14 +69,15 @@ export abstract class Board implements IBoardPrototype, IObservable {
             tempBrick = this.field[fromY][fromX + 1]
             this.field[fromY][fromX + 1] = this.field[fromY][fromX]
             this.field[fromY][fromX] = tempBrick
+            this.notify()
         }
+
         if (this.field[fromY][fromX - 1]?.value === 0) {
             tempBrick = this.field[fromY][fromX - 1]
             this.field[fromY][fromX - 1] = this.field[fromY][fromX]
             this.field[fromY][fromX] = tempBrick
+            this.notify()
         }
-
-        this.notify()
     }
 
     public save(): IMemento {

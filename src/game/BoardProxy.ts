@@ -11,15 +11,28 @@ export class BoardMoveProxy extends Board {
     }
 
     public move(fromX: number, fromY: number): void {
-
-        if (this.field[fromY + 1][fromX].value !== 0 &&
-            this.field[fromY - 1][fromX].value !== 0 &&
-            this.field[fromY][fromX + 1].value !== 0 &&
-            this.field[fromY][fromX - 1].value !== 0
+        if (this.field[fromY + 1] === undefined) {
+            if (this.field[fromY - 1][fromX]?.value !== 0 &&
+                this.field[fromY][fromX + 1]?.value !== 0 &&
+                this.field[fromY][fromX - 1]?.value !== 0
+            ) {
+                throw new Error('Move cannot be done.')
+            }
+        } else if (this.field[fromY - 1] === undefined) {
+            if (this.field[fromY + 1][fromX]?.value !== 0 &&
+                this.field[fromY][fromX + 1]?.value !== 0 &&
+                this.field[fromY][fromX - 1]?.value !== 0
+            ) {
+                throw new Error('Move cannot be done.')
+            }
+        } else if (this.field[fromY + 1][fromX]?.value !== 0 &&
+            this.field[fromY - 1][fromX]?.value !== 0 &&
+            this.field[fromY][fromX + 1]?.value !== 0 &&
+            this.field[fromY][fromX - 1]?.value !== 0
         ) {
             throw new Error('Move cannot be done.')
-        } else {
-            this.board.move(fromX, fromY)
         }
+
+        this.board.move(fromX, fromY)
     }
 }
