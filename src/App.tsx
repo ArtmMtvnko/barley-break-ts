@@ -8,21 +8,32 @@ import GameBoard from './components/GameBoard'
 import BrickComponent from './components/BrickComponent'
 import Button from './components/Button'
 import './style.css'
+import MainMenu from './components/MainMenu'
+import MenuItem from './components/MenuItem'
+import { NewGameCommand } from './utils/Command'
 
 export type TypeBoardContext = {
-  board: BoardMoveProxy
+  boardProxy: BoardMoveProxy
   caretaker: Caretaker
   setField: React.Dispatch<React.SetStateAction<TypeField>>
+  setBoard: React.Dispatch<React.SetStateAction<Board>>
+  setCaretaker: React.Dispatch<React.SetStateAction<Caretaker>>
+  setBoardProxy: React.Dispatch<React.SetStateAction<BoardMoveProxy>>
 } | undefined
 
 export const BoardContext = createContext<TypeBoardContext>(undefined)
 
 function App() {
-  const [board] = useState<Board>(new MidBoardFactory().CreateBoard())
+  const [board, setBoard] = useState<Board>(new MidBoardFactory().CreateBoard())
   const [field, setField] = useState<TypeField>(board.field)
+  const [boardProxy, setBoardProxy] = useState<BoardMoveProxy>(new BoardMoveProxy(board))
+  const [caretaker, setCaretaker] = useState<Caretaker>(new Caretaker(board))
+
+  // console.log('BOARD', board.printField())
+  // console.log('FIELD', field)
 
   useEffect(() => {
-    board.attach(new MoveObserver()) // !!!!!!!
+    board.attach(new MoveObserver()) // !!!!!
     // const smallBoard: SmallBoard = new SmallBoardFactory().CreateBoard()
     // const caretaker = new Caretaker(smallBoard)
 
@@ -50,11 +61,18 @@ function App() {
     <>
       <h1>Barley Break!</h1>
 
+
       <BoardContext.Provider value={{ 
-          board: new BoardMoveProxy(board),
-          caretaker: new Caretaker(board),
-          setField
+        boardProxy,
+        caretaker,
+        setField,
+        setBoard,
+        setCaretaker,
+        setBoardProxy
       }}>
+        <MainMenu>
+          <MenuItem command={new NewGameCommand()}>New 1</MenuItem>
+        </MainMenu>
         <GameBoard>
           {field.map((row, y) => {
             return row.map((brick, x) => 

@@ -13,8 +13,8 @@ const BrickComponent: FC<BrickProps> = ({ brick: { value }, X, Y }) => {
 
     const clickHandler = () => {
         context!.caretaker.backup()
-        context!.board.move(X, Y)
-        context!.setField([...context!.board.field])
+        context!.boardProxy.move(X, Y)
+        context!.setField([...context!.boardProxy.field])
     }
 
     return (

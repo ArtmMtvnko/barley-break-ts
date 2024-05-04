@@ -7,7 +7,7 @@ type BoardProps = {
 
 const GameBoard: FC<BoardProps> = ({ children }) => {
     const context = useContext<TypeBoardContext>(BoardContext)
-    const fieldSize: number = context!.board.field.length
+    const fieldSize: number = context!.boardProxy.field.length
 
     const styles = {
         gridTemplateRows: `repeat(${fieldSize}, 100px)`,
