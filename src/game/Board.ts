@@ -86,6 +86,8 @@ export abstract class Board implements IBoardPrototype, IObservable {
 
     public restore(memento: IMemento): void {
         this.field = JSON.parse(memento.state)
+        console.log(this.field)
+        this.notify()
     }
 }
 

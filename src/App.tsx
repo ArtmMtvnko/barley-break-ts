@@ -59,6 +59,12 @@ function App() {
     // console.log(smallBoard.printField())
   }, [])
 
+  const undoHandler = () => {
+    caretaker.undo()
+    setField([...board.field])
+    setBoardProxy(new BoardMoveProxy(board))
+  }
+
   return (
     <>
       <h1>Barley Break!</h1>
@@ -90,7 +96,7 @@ function App() {
               <BrickComponent key={brick.value} brick={brick} X={x} Y={y}/>
             )
           })}
-          <Button onClick={() => setTab(Tab.Difficulty)}>Undo</Button>
+          <Button onClick={undoHandler}>Undo</Button>
           <Button onClick={() => setTab(Tab.MainMenu)}>Exit</Button>
         </GameBoard>
       </BoardContext.Provider>
