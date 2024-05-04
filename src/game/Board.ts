@@ -97,8 +97,8 @@ export class SmallBoard extends Board {
         this.field = [
             [new Brick(1), new Brick(2), new Brick(3), new Brick(4)],
             [new Brick(5), new Brick(6), new Brick(7), new Brick(8)],
-            [new Brick(9), new Brick(10), new Brick(11), new Brick(12)],
-            [new Brick(13), new Brick(14), new Brick(15), new Brick(0)]
+            [new Brick(9), new Brick(10), new Brick(11), new Brick(0)],
+            [new Brick(13), new Brick(14), new Brick(15), new Brick(12)]
         ]
     }
 }
