@@ -12,6 +12,7 @@ import MenuItem from './components/MenuItem'
 import { NewGameCommand, NewLargeBoardCommand, NewMidBoardCommand, NewSmallBoardCommand, ResumeGameCommand, RulesCommand } from './utils/Command'
 import { Tab } from './utils/TabsEnum'
 import './style.css'
+import Rules from './components/Rules'
 
 export type TypeBoardContext = {
   boardProxy: BoardMoveProxy
@@ -81,7 +82,7 @@ function App() {
         <MainMenu className={tab === Tab.MainMenu ? 'menu active' : 'menu'}>
           <MenuItem action={() => setTab(Tab.Difficulty)} command={new NewGameCommand()}>New Game</MenuItem>
           <MenuItem action={() => setTab(Tab.GameBoard)} command={new ResumeGameCommand()}>Continue</MenuItem>
-          <MenuItem action={() => setTab(Tab.MainMenu)} command={new RulesCommand()}>Rules</MenuItem>
+          <MenuItem action={() => setTab(Tab.Rules)} command={new RulesCommand()}>Rules</MenuItem>
         </MainMenu>
 
         <MainMenu className={tab === Tab.Difficulty ? 'difficulty active' : 'difficulty'}>
@@ -99,6 +100,8 @@ function App() {
           <Button onClick={undoHandler}>Undo</Button>
           <Button onClick={() => setTab(Tab.MainMenu)}>Exit</Button>
         </GameBoard>
+
+        <Rules setTab={setTab} className={tab === Tab.Rules ? 'rules active' : 'rules'}></Rules>
       </BoardContext.Provider>
 
 

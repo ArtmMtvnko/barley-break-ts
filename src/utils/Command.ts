@@ -82,7 +82,8 @@ export class ResumeGameCommand implements ICommand {
 }
 
 export class RulesCommand implements ICommand {
-    execute(): void {
-        
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    execute(_context: TypeBoardContext): void {
+        console.log('rules')
     }
 }

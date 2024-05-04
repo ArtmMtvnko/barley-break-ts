@@ -1,5 +1,6 @@
 export const enum Tab {
     MainMenu,
     Difficulty,
-    GameBoard
+    GameBoard,
+    Rules
 }
