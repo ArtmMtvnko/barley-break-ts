@@ -19,7 +19,7 @@ const BrickComponent: FC<BrickProps> = ({ brick: { value }, X, Y }) => {
 
     return (
         <div className="brick" pos-x={X} pos-y={Y} onClick={clickHandler}>
-            {value}
+            {value || ''}
         </div>
     )
 }

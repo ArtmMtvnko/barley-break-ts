@@ -1,12 +1,12 @@
 import { createContext, useEffect, useState } from 'react'
-import { SmallBoardFactory } from './game/BoardFactory'
+import { MidBoardFactory, SmallBoardFactory } from './game/BoardFactory'
 import { Board, SmallBoard, TypeField } from './game/Board'
 import { MoveObserver } from './game/Observer'
 import { BoardMoveProxy } from './game/BoardProxy'
 import { Caretaker } from './game/Memento'
 import GameBoard from './components/GameBoard'
 import BrickComponent from './components/BrickComponent'
-
+import Button from './components/Button'
 import './style.css'
 
 export type TypeBoardContext = {
@@ -18,7 +18,7 @@ export type TypeBoardContext = {
 export const BoardContext = createContext<TypeBoardContext>(undefined)
 
 function App() {
-  const [board, setBoard] = useState<Board>(new SmallBoardFactory().CreateBoard())
+  const [board] = useState<Board>(new MidBoardFactory().CreateBoard())
   const [field, setField] = useState<TypeField>(board.field)
 
   useEffect(() => {
@@ -62,6 +62,8 @@ function App() {
             )
           })}
         </GameBoard>
+        <Button>undo</Button>
+        <Button>exit</Button>
       </BoardContext.Provider>
 
 
