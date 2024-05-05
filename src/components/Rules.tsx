@@ -17,18 +17,22 @@ const Rules: FC<RulesProps> = ({ setTab, className }) => {
     return <div className={className} style={styles}>
         <div>
                 <b>Wellcome to the Barley Break!</b> <br />
-                Take couple of simple rules next: <br />
-                    1. To move square you must write its coordinate in console field. <br />
-                    Coordinates starts from 0. If you want to move square write down its coordinates as follow: <br />
-                    x y <br />
-                    For example, you have next board: <br />
-                     1  5 12  4 <br />
-                    13  2 15  0 <br />
-                     3 11 10  6 <br />
-                     8  7  9 14 <br />
-                    To move \'15\' write \'2 1\' in field (without \'\') <br />
-                    <b>2. To Exit enter \'q\' in the field (without \'\')</b> <br />
-                    <b>3. To Undo move - enter \'z\' in the field (without \'\')</b> <br />
+                Main goal: set all bricks (squares) in ascending order ending with empty brick. <br />
+                In other words, your board should look like this pattern: <br />
+                <pre>
+                    | 1  2  3  4 | <br />
+                    | 5  6  7  8 | <br />
+                    | 9 10 11 12 | <br />
+                    |13 14 15  0 | <br />
+                </pre>
+                <b>MAIN POINTS:</b> <br />
+                1. To move brick click on it. <br />
+                2. If empty sell will be near, brick on which you click will be replaced with empty one. <br />
+                3. Press 'Undo' if you want to rollback your last move. (maximum 10 rollbacks) <br />
+                4. Game automaticly saving so you can resume game at last point at any time 
+                you want by click on 'continue' in main menu. <br />
+                5. There are 3 levels of difficulty which represents size of board: 4x4, 5x5, 6x6. <br />
+                <p><b>Good Luck!</b></p>
         </div>
         <Button onClick={() => setTab(Tab.MainMenu)} >Exit</Button>
     </div>
