@@ -1,6 +1,7 @@
 import { Brick } from "./Brick"
 import { IObservable, IObserver } from "./Observer"
 import { FieldMemento, IMemento } from "./Memento"
+import { IGameState, OngoingState } from "./State"
 
 interface IBoardPrototype {
     clone(): string
@@ -10,7 +11,12 @@ export type TypeField = Brick[][]
 
 export abstract class Board implements IBoardPrototype, IObservable {
     public abstract field: TypeField
+    public state: IGameState = new OngoingState()
     protected observers: IObserver[] = []
+
+    public get isDone(): boolean {
+        return this.state.isWin(this)
+    }
 
     public printField(): void {
         let output = ''

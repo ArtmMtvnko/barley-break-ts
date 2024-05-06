@@ -13,6 +13,7 @@ import { NewGameCommand, NewLargeBoardCommand, NewMidBoardCommand, NewSmallBoard
 import { Tab } from './utils/TabsEnum'
 import './style.css'
 import Rules from './components/Rules'
+import Game from './components/Game'
 
 export type TypeBoardContext = {
   boardProxy: BoardMoveProxy
@@ -67,10 +68,7 @@ function App() {
   }
 
   return (
-    <>
-      <h1>Barley Break!</h1>
-
-
+    <Game>
       <BoardContext.Provider value={{ 
         boardProxy,
         caretaker,
@@ -80,6 +78,7 @@ function App() {
         setBoardProxy
       }}>
         <MainMenu className={tab === Tab.MainMenu ? 'menu active' : 'menu'}>
+          <h1>Barley Break!</h1>
           <MenuItem action={() => setTab(Tab.Difficulty)} command={new NewGameCommand()}>New Game</MenuItem>
           <MenuItem action={() => setTab(Tab.GameBoard)} command={new ResumeGameCommand()}>Continue</MenuItem>
           <MenuItem action={() => setTab(Tab.Rules)} command={new RulesCommand()}>Rules</MenuItem>
@@ -104,8 +103,8 @@ function App() {
         <Rules setTab={setTab} className={tab === Tab.Rules ? 'rules active' : 'rules'}></Rules>
       </BoardContext.Provider>
 
-
-    </>
+      <div className={board.isDone ? 'congratulation active' : 'congratulation'}></div>
+    </Game>
   )
 }
 

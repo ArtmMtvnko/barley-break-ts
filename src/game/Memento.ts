@@ -24,6 +24,9 @@ export class Caretaker {
         console.log(this.mementos)
         if (this.mementos.length < 10) {
             this.mementos.push(this.originator.save())
+        } else {
+            this.mementos.shift()
+            this.mementos.push(this.originator.save())
         }
     }
 
