@@ -11,7 +11,9 @@ const Button: FC<ButtonProps> = ({ children, onClick }) => {
         padding: 10,
         cursor: 'pointer',
         backgroundColor: 'transparent',
-        border: '1px solid black'
+        border: '1px solid black',
+        fontSize: 18,
+        fontFamily: 'monospace'
     }
 
     return <button onClick={onClick} style={styles}>{children}</button>

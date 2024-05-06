@@ -30,6 +30,10 @@ body {
     display: flex;
 }
 
+.menu h1 {
+    font-size: 40px;
+}
+
 .difficulty {
     display: none;
 }
@@ -71,13 +75,22 @@ body {
     display: block;
 }
 
-.congratulation.active {
+.congratulation {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
     position: absolute;
+    z-index: 100;
     width: 500px;
     height: 500px;
-    background-color: red;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #b39dcb;
 }
 
-.congratulation {
-    display: block;
+.congratulation.active {
+    display: flex;
 }

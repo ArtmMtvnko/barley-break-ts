@@ -14,6 +14,7 @@ import { Tab } from './utils/TabsEnum'
 import './style.css'
 import Rules from './components/Rules'
 import Game from './components/Game'
+import WinMenu from './components/WinMenu'
 
 export type TypeBoardContext = {
   boardProxy: BoardMoveProxy
@@ -37,7 +38,7 @@ function App() {
   // console.log('FIELD', field)
 
   useEffect(() => {
-    board.attach(new MoveObserver()) // !!!!!
+    // board.attach(new MoveObserver()) // !!!!!
     // const smallBoard: SmallBoard = new SmallBoardFactory().CreateBoard()
     // const caretaker = new Caretaker(smallBoard)
 
@@ -103,7 +104,12 @@ function App() {
         <Rules setTab={setTab} className={tab === Tab.Rules ? 'rules active' : 'rules'}></Rules>
       </BoardContext.Provider>
 
-      <div className={board.isDone ? 'congratulation active' : 'congratulation'}></div>
+      <WinMenu 
+        className={board.isDone && tab === Tab.GameBoard ? 'congratulation active' : 'congratulation'}
+        board={board}
+        setTab={setTab}>
+        <h1>Congratulation. You win!</h1>
+      </WinMenu>
     </Game>
   )
 }
