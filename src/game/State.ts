@@ -20,7 +20,6 @@ export class OngoingState implements IGameState {
 
         if (isEnd) {
             board.state = new EndGameState()
-            console.log('from ongiong end state')
             return true
         }
 
@@ -29,9 +28,8 @@ export class OngoingState implements IGameState {
 }
 
 export class EndGameState implements IGameState {
-    public isWin(board: Board): boolean {
-        console.log(board.state)
-        console.log('from end state')
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    public isWin(_board: Board): boolean {
         return true
     }
 }

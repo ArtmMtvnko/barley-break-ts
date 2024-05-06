@@ -20,21 +20,21 @@ export class BoardMoveProxy extends Board {
                 this.field[fromY][fromX + 1]?.value !== 0 &&
                 this.field[fromY][fromX - 1]?.value !== 0
             ) {
-                throw new Error('Move cannot be done.')
+                console.log('PROXY: Move cannot be done.')
             }
         } else if (this.field[fromY - 1] === undefined) {
             if (this.field[fromY + 1][fromX]?.value !== 0 &&
                 this.field[fromY][fromX + 1]?.value !== 0 &&
                 this.field[fromY][fromX - 1]?.value !== 0
             ) {
-                throw new Error('Move cannot be done.')
+                console.log('PROXY: Move cannot be done.')
             }
         } else if (this.field[fromY + 1][fromX]?.value !== 0 &&
             this.field[fromY - 1][fromX]?.value !== 0 &&
             this.field[fromY][fromX + 1]?.value !== 0 &&
             this.field[fromY][fromX - 1]?.value !== 0
         ) {
-            throw new Error('Move cannot be done.')
+            console.log('PROXY: Move cannot be done.')
         }
 
         this.board.move(fromX, fromY)

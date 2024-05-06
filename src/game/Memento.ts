@@ -21,7 +21,6 @@ export class Caretaker {
     }
 
     public backup(): void {
-        console.log(this.mementos)
         if (this.mementos.length < 10) {
             this.mementos.push(this.originator.save())
         } else {
@@ -31,8 +30,10 @@ export class Caretaker {
     }
 
     public undo(): void {
-        // debugger
-        if (this.mementos.length === 0) throw new Error('Stack of backups is empty')
+        if (this.mementos.length === 0) {
+            console.log('MEMENTO: Stack of backups is empty')
+            return
+        }
 
         const lastMemento = this.mementos.pop()
         this.originator.restore(lastMemento!)

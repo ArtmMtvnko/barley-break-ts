@@ -72,8 +72,6 @@ export class ResumeGameCommand implements ICommand {
         const proxy = new BoardMoveProxy(board)
         const caretaker = new Caretaker(board)
 
-        console.log(board.printField())
-
         context!.setBoard(board)
         context!.setCaretaker(caretaker)
         context!.setBoardProxy(proxy)
@@ -83,7 +81,5 @@ export class ResumeGameCommand implements ICommand {
 
 export class RulesCommand implements ICommand {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    execute(_context: TypeBoardContext): void {
-        console.log('rules')
-    }
+    execute(_context: TypeBoardContext): void {}
 }

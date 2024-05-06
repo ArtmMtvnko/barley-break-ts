@@ -1,7 +1,6 @@
-import { createContext, useEffect, useState } from 'react'
-import { MidBoardFactory, SmallBoardFactory } from './game/BoardFactory'
-import { Board, SmallBoard, TypeField } from './game/Board'
-import { MoveObserver } from './game/Observer'
+import { createContext, useState } from 'react'
+import { MidBoardFactory } from './game/BoardFactory'
+import { Board, TypeField } from './game/Board'
 import { BoardMoveProxy } from './game/BoardProxy'
 import { Caretaker } from './game/Memento'
 import GameBoard from './components/GameBoard'
@@ -33,34 +32,6 @@ function App() {
   const [field, setField] = useState<TypeField>(board.field)
   const [boardProxy, setBoardProxy] = useState<BoardMoveProxy>(new BoardMoveProxy(board))
   const [caretaker, setCaretaker] = useState<Caretaker>(new Caretaker(board))
-
-  // console.log('BOARD', board.printField())
-  // console.log('FIELD', field)
-
-  useEffect(() => {
-    // board.attach(new MoveObserver()) // !!!!!
-    // const smallBoard: SmallBoard = new SmallBoardFactory().CreateBoard()
-    // const caretaker = new Caretaker(smallBoard)
-
-    // console.log(smallBoard.printField())
-
-    // smallBoard.attach(new MoveObserver())
-
-    // const proxy = new BoardMoveProxy(smallBoard)
-
-    // caretaker.backup()
-    // proxy.move(3, 2)
-
-    // caretaker.backup()
-    // proxy.move(3, 1)
-    
-    // console.log(smallBoard.printField())
-    // console.log(caretaker)
-
-    // caretaker.undo()
-    // caretaker.undo()
-    // console.log(smallBoard.printField())
-  }, [])
 
   const undoHandler = () => {
     caretaker.undo()
