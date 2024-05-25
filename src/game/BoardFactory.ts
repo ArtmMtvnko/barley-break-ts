@@ -10,7 +10,7 @@ export class SmallBoardFactory implements IBoardFactory {
         return new SmallBoard()
     }
 
-    createFromSaved() :Board {
+    createFromSaved(): Board {
         const board = new SmallBoard()
 
         const savedData = localStorage.getItem('field')
